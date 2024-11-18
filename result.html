@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Result</h1>
+
+        <h3 id="student-name"></h3>
+
+        <!-- Table to display subject names and marks -->
+        <table id="marks-table" border="1" cellspacing="0" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Obtained Marks</th>
+                    <th>Total Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be inserted dynamically here -->
+            </tbody>
+        </table>
+
+        <!-- Display percentage -->
+        <p><strong>Percentage:</strong> <span id="percentage"></span></p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Retrieve the data from localStorage
+            let studentName = localStorage.getItem("studentName");
+            let totalMarks = parseFloat(localStorage.getItem("totalMarks"));
+            let subjects = JSON.parse(localStorage.getItem("subjects"));
+            let percentage = localStorage.getItem("percentage");
+
+            // Display the student name
+            document.getElementById("student-name").innerText = `Student: ${studentName}`;
+
+            // Get the table body
+            let tableBody = document.getElementById("marks-table").getElementsByTagName('tbody')[0];
+
+            // Add rows to the table
+            subjects.forEach(subject => {
+                let row = tableBody.insertRow();
+                row.insertCell(0).innerText = subject.name;
+                row.insertCell(1).innerText = subject.obtained;
+                row.insertCell(2).innerText = totalMarks;
+            });
+
+            // Display the percentage
+            document.getElementById("percentage").innerText = `${percentage}%`;
+        };
+    </script>
+</body>
+</html>
