@@ -3,58 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Result</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Result - Student Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: #1e1e1e;
+            padding: 30px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3), -10px -10px 20px rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 15px 15px 25px rgba(0, 0, 0, 0.4), -15px -15px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #FFD700;
+            font-size: 2.4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        h2 {
+            text-align: center;
+            color: #b0b0b0;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #444;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        table th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        table td {
+            background-color: #444;
+        }
+
+        /* Percentage Styling */
+        #percentage-result {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        #percentage-result span {
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            table th, table td {
+                font-size: 1rem;
+                padding: 8px;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+
     <div class="container">
         <h1>Student Result</h1>
 
-        <h3 id="student-name"></h3>
+        <!-- Display Student Name -->
+        <h2 id="student-name-result"></h2>
 
-        <!-- Table to display subject names and marks -->
-        <table id="marks-table" border="1" cellspacing="0" cellpadding="10">
+        <!-- Table for Subjects and Marks -->
+        <table id="marks-table">
             <thead>
                 <tr>
-                    <th>Subject</th>
+                    <th>Subject Name</th>
                     <th>Obtained Marks</th>
                     <th>Total Marks</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Rows will be inserted dynamically here -->
+                <!-- Rows will be dynamically inserted here -->
             </tbody>
         </table>
 
-        <!-- Display percentage -->
-        <p><strong>Percentage:</strong> <span id="percentage"></span></p>
+        <!-- Display Percentage -->
+        <div id="percentage-result">
+            <p><strong>Percentage: </strong><span id="percentage"></span>%</p>
+        </div>
+
+        <!-- Download PDF Button -->
+        <button id="download-pdf">Download Result as PDF</button>
     </div>
 
-    <script>
-        window.onload = function() {
-            // Retrieve the data from localStorage
-            let studentName = localStorage.getItem("studentName");
-            let totalMarks = parseFloat(localStorage.getItem("totalMarks"));
-            let subjects = JSON.parse(localStorage.getItem("subjects"));
-            let percentage = localStorage.getItem("percentage");
+    <!-- Include the jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-            // Display the student name
-            document.getElementById("student-name").innerText = `Student: ${studentName}`;
-
-            // Get the table body
-            let tableBody = document.getElementById("marks-table").getElementsByTagName('tbody')[0];
-
-            // Add rows to the table
-            subjects.forEach(subject => {
-                let row = tableBody.insertRow();
-                row.insertCell(0).innerText = subject.name;
-                row.insertCell(1).innerText = subject.obtained;
-                row.insertCell(2).innerText = totalMarks;
-            });
-
-            // Display the percentage
-            document.getElementById("percentage").innerText = `${percentage}%`;
-        };
-    </script>
+    <!-- Include the result.js script to handle the download logic -->
+    <script src="result.js"></script>
 </body>
 </html>
+
