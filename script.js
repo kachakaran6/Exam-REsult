@@ -1,45 +1,56 @@
-document.getElementById("calculate-button").addEventListener("click", function() {
-    // Get the total marks for each subject
-    let totalMarksPerSubject = parseFloat(document.getElementById("total-marks").value);
+// Initialize an array to store the subjects and their marks
+let subjects = [];
+let subjectCount = 0; // Keep track of the number of subjects entered
 
-    // Get the obtained marks and subject names for each subject
-    let subjects = [
-        { name: document.getElementById("subjectName-1").value, obtained: parseFloat(document.getElementById("subject1-obtained").value) },
-        { name: document.getElementById("subjectName-2").value, obtained: parseFloat(document.getElementById("subject2-obtained").value) },
-        { name: document.getElementById("subjectName-3").value, obtained: parseFloat(document.getElementById("subject3-obtained").value) },
-        { name: document.getElementById("subjectName-4").value, obtained: parseFloat(document.getElementById("subject4-obtained").value) },
-        { name: document.getElementById("subjectName-5").value, obtained: parseFloat(document.getElementById("subject5-obtained").value) }
-    ];
+// Handle adding a subject to the array and updating the subject count
+document.getElementById('add-subject').addEventListener('click', function() {
+    // Get the student name and total marks
+    const studentName = document.getElementById('student-name').value;
+    const totalMarks = parseInt(document.getElementById('total-marks').value);
+    
+    // Get the subject name and obtained marks
+    const subjectName = document.getElementById('subject-name').value;
+    const obtainedMarks = parseInt(document.getElementById('subject-obtained').value);
+    
+    // If the fields are not empty, add the subject to the array
+    if (subjectName && !isNaN(obtainedMarks)) {
+        subjects.push({
+            name: subjectName,
+            obtained: obtainedMarks,
+            total: totalMarks
+        });
 
-    // Get student name
-    let studentName = document.getElementById("student-name").value;
+        // Increment the subject count
+        subjectCount++;
 
-    // Validate input data
-    if (isNaN(totalMarksPerSubject) || totalMarksPerSubject <= 0) {
-        alert("Please enter a valid total marks for each subject.");
-        return;
+        // Update the subject counter on the page
+        document.getElementById('subject-counter').innerText = `Subjects Entered: ${subjectCount}`;
+
+        // Reset input fields for next subject
+        document.getElementById('subject-name').value = '';
+        document.getElementById('subject-obtained').value = '';
+    } else {
+        alert("Please fill in both subject and obtained marks.");
     }
+});
 
-    if (subjects.some(subject => isNaN(subject.obtained) || subject.name.trim() === "")) {
-        alert("Please enter valid subject names and obtained marks for all subjects.");
-        return;
-    }
-
-    // Calculate total obtained marks
-    let totalObtained = subjects.reduce((acc, subject) => acc + subject.obtained, 0);
-
-    // Calculate total maximum marks (5 subjects * total marks per subject)
-    let totalMax = 5 * totalMarksPerSubject;
-
+// Handle submitting the result
+document.getElementById('submit-result').addEventListener('click', function() {
+    // Get the student name and total marks
+    const studentName = document.getElementById('student-name').value;
+    
+    // Calculate total obtained marks and total max marks
+    const totalObtainedMarks = subjects.reduce((total, subject) => total + subject.obtained, 0);
+    const totalMaxMarks = subjects.reduce((total, subject) => total + subject.total, 0);
+    
     // Calculate percentage
-    let percentage = (totalObtained / totalMax) * 100;
+    const percentage = ((totalObtainedMarks / totalMaxMarks) * 100).toFixed(2);
 
-    // Store the results in localStorage
+    // Store the student data in localStorage
     localStorage.setItem("studentName", studentName);
-    localStorage.setItem("totalMarks", totalMarksPerSubject);
     localStorage.setItem("subjects", JSON.stringify(subjects));
-    localStorage.setItem("percentage", percentage.toFixed(2));
+    localStorage.setItem("percentage", percentage);
 
-    // Redirect to the results page
-    window.location.href = "result.html";
+    // Redirect to result page
+    window.location.href = 'result.html';  // Assuming your result page is named result.html
 });
