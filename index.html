@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Student Result</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #121212;
+            color: #fff;
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: #1e1e1e;
+            padding: 30px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3), -10px -10px 20px rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            text-align: center;
+            color: #FFD700; /* Gold color for title */
+            font-size: 2.4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Labels */
+        label {
+            font-size: 1rem;
+            color: #b0b0b0;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Inputs */
+        input {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border: none;
+            background: #333;
+            color: #f5f5f5;
+            font-size: 1rem;
+            box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.5), inset -6px -6px 12px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            background-color: #444;
+            color: #fff;
+            outline: none;
+            box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Add Subject Button */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        /* Submit Button */
+        #submit-result {
+            background-color: #007bff;
+            margin-top: 20px;
+        }
+
+        #submit-result:hover {
+            background-color: #0069d9;
+        }
+
+        /* Subject Counter Box */
+        #subject-counter {
+            font-size: 1rem;
+            color: #b0b0b0;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Enter Student Result</h1>
+
+        <!-- Student Name Input -->
+        <label for="student-name">Student Name:</label>
+        <input type="text" id="student-name" placeholder="Enter student name" required><br>
+
+        <!-- Total Marks Input -->
+        <label for="total-marks">Total Marks for Each Subject:</label>
+        <input type="number" id="total-marks" placeholder="Enter total marks" required><br>
+
+        <!-- Subject Name and Obtained Marks Input -->
+        <label for="subject-name">Subject:</label>
+        <input type="text" id="subject-name" placeholder="Enter subject name" required><br>
+        
+        <label for="subject-obtained">Obtained Marks:</label>
+        <input type="number" id="subject-obtained" placeholder="Enter obtained marks" required><br>
+
+        <button id="add-subject">Add Subject</button><br>
+
+        <!-- Subject Counter Box -->
+        <div id="subject-counter">Subjects Entered: 0</div>
+
+        <!-- Submit Button -->
+        <button id="submit-result">Submit Result</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
 
